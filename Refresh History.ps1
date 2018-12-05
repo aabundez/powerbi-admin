@@ -1,9 +1,22 @@
-﻿#Get Refresh History in Group
-#https://docs.microsoft.com/en-us/rest/api/power-bi/datasets/getrefreshhistoryingroup
+﻿<#
+
+.SYNOPSIS
+Collect Refresh History from Power BI and export to Excel.
+
+.DESCRIPTION
+ The script relies on the 'Refresh History in Group' API call to retrieve the data and the ImportExcel module in the PSGallery 
+ to export to Excel without needing Excel installed. https://docs.microsoft.com/en-us/rest/api/power-bi/datasets/getrefreshhistoryingroup
+
+.EXAMPLE
+./Refresh.ps1
+
+.LINK
+http://www.angelabundez.com
+
+#>
 
 
-#Disconnect-PowerBIServiceAccount
-
+#Connect to the Power BI Service
 try {
     Get-PowerBIAccessToken 
 }
