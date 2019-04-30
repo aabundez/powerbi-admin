@@ -19,7 +19,7 @@
 #>
 
 
-#Connect to the Power BI Service
+#PARAMETERS
 param (
     [Parameter(Position = 0, Mandatory = $true)][string]$Workspace,
     [Parameter(Position = 1, Mandatory = $true)][string]$Dataset,
@@ -27,6 +27,7 @@ param (
     #[Parameter(Position = 3)][switch]$exportdata = $false
 )
 
+#Connect to the Power BI Service
 try {
     Get-PowerBIAccessToken 
 }
