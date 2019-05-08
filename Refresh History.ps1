@@ -26,7 +26,7 @@ catch {
 
 
 #Get active Power BI Workspaces
-$ws = Get-PowerBIWorkspace -Scope Organization -Filter "type eq 'Group' and state eq 'Active'"
+$ws = Get-PowerBIWorkspace -Filter "name eq 'Executive Dashboard'"
 
 
 #Initiate PSCustomObject to collect Refresh History
@@ -47,9 +47,15 @@ foreach ($w in $ws) {
 
     #Start loop on each dataset
     foreach ($d in $ds){
+        
+        $did = $d.Id
+        $dname = $d.Name
+
+        Write-Host "Dataset.id = " $did " workspace.name = "$dname
 
         #Get Refresh data
-        $url = "groups/" + $w.id.ToString() + "/datasets/" + $d.Id.ToString() + "/refreshes"
+        $url = "groups/" + $wid + "/datasets/" + $did + "/refreshes"
+        Write-Host $url
         $ref = Invoke-PowerBIRestMethod -Url $url -Method Get | ConvertFrom-Json 
 
         #Add Dataset information
@@ -66,7 +72,16 @@ foreach ($w in $ws) {
 }
 
 #Export to incremental Excel file
-$refs.value | Export-Excel -Path "C:\Users\angel\Dropbox\InData\Projects\Fillmore Piru Citrus\Powershell\refreshes2.xlsx"
+$refs.value | Export-Csv -Path "C:\temp\refresh_history.csv"
 
-#Merging data in Excel
-Merge-Worksheet "refreshes.xlsx" "refreshes2.xlsx" -WorksheetName Sheet1 -OutputFile refreshcombined.xlsx -OutputSheetName Sheet1 -Key id
+
+
+<#
+####### TESTING ################
+
+ $url = "groups/559b76a8-ee6b-409c-a1c9-e9e59f74b799/datasets/9d1eab87-9fab-4693-b79e-e3fd4a7e58dd/refreshes"
+ Invoke-PowerBIRestMethod -Url $url -Method Get | ConvertFrom-Json 
+
+ Resolve-PowerBIError -Last
+
+#>
