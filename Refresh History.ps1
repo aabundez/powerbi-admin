@@ -72,12 +72,12 @@ foreach ($w in $ws) {
 }
 
 #Export to incremental Excel file
-$refs.value | Export-Csv -Path "C:\temp\refresh_history.csv"
+$refs.value | Export-Csv -Path "C:\temp\refresh_history.csv" -NoTypeInformation
 
 
 
 <#
-####### TESTING ################
+####### TESTING ##############
 
  $url = "groups/559b76a8-ee6b-409c-a1c9-e9e59f74b799/datasets/9d1eab87-9fab-4693-b79e-e3fd4a7e58dd/refreshes"
  Invoke-PowerBIRestMethod -Url $url -Method Get | ConvertFrom-Json 
