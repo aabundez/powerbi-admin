@@ -4,9 +4,12 @@
     Connects to Power BI REST API via Service Principal.
 
 .DESCRIPTION
-    Uses Azure App Registration ID and Secret Key to authenticate to the Power BI REST API.
-    TO-DO: 
-    
+    Working example of how to authenticate to Power BI REST API with Service Principal.
+    Follow instructions in the LINK provided to authorize the Service Principal and 
+    assign it permissions to new workspaces. 
+    Two important notes: 
+        * admin API calls are not supported
+        * only New Workspaces (v2) are supported    
 
 .EXAMPLE
     .\Connect-PBIServicePrincipal.ps1
@@ -17,14 +20,14 @@
 
 #>
 
-
-
-#Registered App credentials
+# Registered App credentials
 $aid = "APP_ID" 
 $skey = "SECRET_KEY" 
+
+# Tenant name or tenant ID. Tenant ID is available in "About Power BI" menu item in Power BI Service.
 $tenant = "tenant.onmicrosoft.com"
 
-#Create PSCredential
+# Create PSCredential
 $skeysecure = ConvertTo-SecureString -String $skey -AsPlainText -Force  #Secure the string
 $creds = New-Object -TypeName System.Management.Automation.PSCredential -argumentlist $aid, $skeysecure   #Create PSCredential
 
