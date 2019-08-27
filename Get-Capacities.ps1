@@ -39,7 +39,7 @@ if(!$authtoken) { $authtoken = Get-PowerBIAccessToken}
 $url = "https://api.powerbi.com/v1.0/myorg/admin/capacities"
 
 
-Invoke-RestMethod -Headers $authtoken -Uri $url -Method Get
+(Invoke-RestMethod -Headers $authtoken -Uri $url -Method Get).value
 
 
 
